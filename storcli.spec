@@ -11,6 +11,12 @@ ExclusiveArch:  aarch64 x86_64
 Source0:        https://docs.broadcom.com/docs-and-downloads/raid-controllers/raid-controllers-common-files/%{version}_Unified_StorCLI.zip
 Source1:        https://docs.broadcom.com/docs-and-downloads/raid-controllers/raid-controllers-common-files/%{version}_Unified_StorCLI.txt
 
+%if 0%{?rhel} >= 8 || 0%{?fedora}
+BuildRequires:  efi-srpm-macros
+%else
+%global efi_esp_efi /boot/efi/EFI
+%endif
+
 %description
 MegaRAID StorageCli enables you to configure RAID controllers, monitor, maintain
 storage configurations and it provides a range of functions, such as RAID array
@@ -21,6 +27,7 @@ MegaRAID StorCli provides a command line interface and does not support a GUI.
 
 %package efi
 Summary:        Broadcom MegaRAID StorCLI for UEFI
+Requires:       efi-filesystem
 Requires:       %{name}%{?_isa}
 
 %description efi
