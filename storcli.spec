@@ -8,6 +8,7 @@ License:        Proprietary
 URL:            https://www.broadcom.com/products/storage/raid-controllers
 ExclusiveArch:  aarch64 x86_64
 
+# Search at: https://www.broadcom.com/support/download-search?pg=&pf=&pn=&pa=&po=&dk=storcli&pl=
 Source0:        https://docs.broadcom.com/docs-and-downloads/raid-controllers/raid-controllers-common-files/%{version}_Unified_StorCLI.zip
 Source1:        https://docs.broadcom.com/docs-and-downloads/raid-controllers/raid-controllers-common-files/%{version}_Unified_StorCLI.txt
 
