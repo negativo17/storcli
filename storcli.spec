@@ -1,7 +1,7 @@
 %global debug_package %{nil}
 
 Name:           storcli
-Version:        007.1613.0000.0000
+Version:        007.1804.0000.0000
 Release:        1%{?dist}
 Summary:        Broadcom MegaRAID StorCLI
 License:        Proprietary
@@ -72,5 +72,8 @@ install -p -m 0644 -D %{name}.efi %{buildroot}%{efi_esp_efi}/%{name}.efi
 %{efi_esp_efi}/%{name}.efi
 
 %changelog
+* Sat Jul 24 2021 Simone Caronni <negativo17@gmail.com> - 007.1804.0000.0000-1
+- Update to 007.1804.0000.0000.
+
 * Fri Feb 05 2021 Simone Caronni <negativo17@gmail.com> - 007.1613.0000.0000-1
 - First build.
