@@ -1,12 +1,12 @@
 %global debug_package %{nil}
 
 Name:           storcli
-Version:        007.1912.0000.0000
+Version:        007.2007.0000.0000
 Release:        1%{?dist}
 Summary:        Broadcom MegaRAID StorCLI
 License:        Proprietary
 URL:            https://www.broadcom.com/products/storage/raid-controllers
-ExclusiveArch:  aarch64 x86_64
+ExclusiveArch:  aarch64 x86_64 ppc64le
 
 # Search at: https://www.broadcom.com/support/download-search?pg=&pf=&pn=&pa=&po=&dk=storcli&pl=
 Source0:        https://docs.broadcom.com/docs-and-downloads/raid-controllers/raid-controllers-common-files/%{version}_Unified_StorCLI.zip
@@ -26,6 +26,7 @@ import, and hard drive status adjustment.
 
 MegaRAID StorCli provides a command line interface and does not support a GUI.
 
+%ifnarch ppc64le
 %package efi
 Summary:        Broadcom MegaRAID StorCLI for UEFI
 Requires:       efi-filesystem
@@ -39,6 +40,7 @@ import, and hard drive status adjustment.
 
 This package contains a binary that can be executed from the EFI partition in a
 UEFI environment.
+%endif
 
 %prep
 %autosetup -n Unified_storcli_all_os
@@ -56,22 +58,34 @@ unzip ARM/Linux/storcli64.zip
 cp ARM/EFI/storcli.efi .
 %endif
 
+%ifarch ppc64le
+unzip Linux-PPC/LittleEndian/storcli64.zip
+%endif
+
 %build
 # Nothing to build
 
 %install
 install -p -m 0755 -D %{name}64 %{buildroot}%{_sbindir}/%{name}
+%ifnarch ppc64le
 install -p -m 0644 -D %{name}.efi %{buildroot}%{efi_esp_efi}/%{name}.efi
+%endif
 
 %files
 %license ThirdPartyLicenseNotice.pdf
 %doc changelog.txt readme.txt storcliconf.ini JSON-Schema
 %{_sbindir}/%{name}
 
+%ifnarch ppc64le
 %files efi
 %{efi_esp_efi}/%{name}.efi
+%endif
 
 %changelog
+* Fri Mar 25 2022 Simone Caronni <negativo17@gmail.com> - 007.2007.0000.0000-1
+- Update to version 007.2007.0000.0000.
+- Allow building on ppc64le.
+
 * Thu Dec 09 2021 Simone Caronni <negativo17@gmail.com> - 007.1912.0000.0000-1
 - Update to 007.1912.0000.0000.
 
