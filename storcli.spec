@@ -43,7 +43,7 @@ UEFI environment.
 %endif
 
 %prep
-%autosetup -n Unified_storcli_all_os
+%autosetup -c
 cp %{SOURCE1} changelog.txt
 unzip -q JSON-Schema/JSON_SCHEMA_FILES.zip
 
