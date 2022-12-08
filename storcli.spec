@@ -56,7 +56,7 @@ cp Unified_storcli_all_os/EFI/storcli.efi .
 
 %ifarch aarch64
 unzip Unified_storcli_all_os/ARM/Linux/storcli64.zip
-cp ARM/EFI/storcli.efi .
+cp Unified_storcli_all_os/ARM/EFI/storcli.efi .
 %endif
 
 %ifarch ppc64le
