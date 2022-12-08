@@ -1,7 +1,7 @@
 %global debug_package %{nil}
 
 Name:           storcli
-Version:        007.2203.0000.0000
+Version:        007.2309.0000.0000
 Release:        1%{?dist}
 Summary:        Broadcom MegaRAID StorCLI
 License:        Proprietary
@@ -9,8 +9,9 @@ URL:            https://www.broadcom.com/products/storage/raid-controllers
 ExclusiveArch:  aarch64 x86_64 ppc64le
 
 # Search at: https://www.broadcom.com/support/download-search?pg=&pf=&pn=&pa=&po=&dk=storcli&pl=
-Source0:        https://docs.broadcom.com/docs-and-downloads/raid-controllers/raid-controllers-common-files/%{version}_Unified_StorCLI.zip
-Source1:        https://docs.broadcom.com/docs-and-downloads/raid-controllers/raid-controllers-common-files/%{version}_Unified_StorCLI.txt
+# Note that final URLs, tarball name and tarball structure keep on changing.
+Source0:        https://docs.broadcom.com/docs-and-downloads/raid-controllers/raid-controllers-common-files/Unified_storcli_all_os_7.2309.0000.0000.zip
+Source1:        https://docs.broadcom.com/docs-and-downloads/raid-controllers/raid-controllers-common-files/7.2309.0000.0000_Unified_StorCLI.txt
 
 %if 0%{?rhel} >= 8 || 0%{?fedora}
 BuildRequires:  efi-srpm-macros
@@ -45,21 +46,21 @@ UEFI environment.
 %prep
 %autosetup -c
 cp %{SOURCE1} changelog.txt
-unzip -q JSON-Schema/JSON_SCHEMA_FILES.zip
+unzip -q Unified_storcli_all_os/JSON-Schema/JSON_SCHEMA_FILES.zip
 
 %ifarch x86_64
-rpm2cpio Linux/*rpm | cpio -idm
+rpm2cpio Unified_storcli_all_os/Linux/*rpm | cpio -idm
 mv opt/MegaRAID/storcli/storcli64 .
-cp EFI/storcli.efi .
+cp Unified_storcli_all_os/EFI/storcli.efi .
 %endif
 
 %ifarch aarch64
-unzip ARM/Linux/storcli64.zip
+unzip Unified_storcli_all_os/ARM/Linux/storcli64.zip
 cp ARM/EFI/storcli.efi .
 %endif
 
 %ifarch ppc64le
-unzip Linux-PPC/LittleEndian/storcli64.zip
+unzip Unified_storcli_all_os/Linux-PPC/LittleEndian/storcli64.zip
 %endif
 
 %build
@@ -72,8 +73,8 @@ install -p -m 0644 -D %{name}.efi %{buildroot}%{efi_esp_efi}/%{name}.efi
 %endif
 
 %files
-%license ThirdPartyLicenseNotice.pdf
-%doc changelog.txt readme.txt storcliconf.ini JSON-Schema
+%license Unified_storcli_all_os/ThirdPartyLicenseNotice.pdf
+%doc changelog.txt Unified_storcli_all_os/readme.txt Unified_storcli_all_os/storcliconf.ini Unified_storcli_all_os/JSON-Schema
 %{_sbindir}/%{name}
 
 %ifnarch ppc64le
@@ -82,6 +83,9 @@ install -p -m 0644 -D %{name}.efi %{buildroot}%{efi_esp_efi}/%{name}.efi
 %endif
 
 %changelog
+* Thu Nov 10 2022 Simone Caronni <negativo17@gmail.com> - 007.2309.0000.0000-1
+- Update to 007.2309.0000.000.
+
 * Mon Aug 15 2022 Simone Caronni <negativo17@gmail.com> - 007.2203.0000.0000-1
 - Update to 007.2203.0000.0000.
 
