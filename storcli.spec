@@ -1,7 +1,7 @@
 %global debug_package %{nil}
 
 Name:           storcli
-Version:        007.2309.0000.0000
+Version:        007.2408.0000.0000
 Release:        1%{?dist}
 Summary:        Broadcom MegaRAID StorCLI
 License:        Proprietary
@@ -10,8 +10,7 @@ ExclusiveArch:  aarch64 x86_64 ppc64le
 
 # Search at: https://www.broadcom.com/support/download-search?pg=&pf=&pn=&pa=&po=&dk=storcli&pl=
 # Note that final URLs, tarball name and tarball structure keep on changing.
-Source0:        https://docs.broadcom.com/docs-and-downloads/raid-controllers/raid-controllers-common-files/Unified_storcli_all_os_7.2309.0000.0000.zip
-Source1:        https://docs.broadcom.com/docs-and-downloads/raid-controllers/raid-controllers-common-files/7.2309.0000.0000_Unified_StorCLI.txt
+Source0:        Unified_storcli_all_os_%{version}.zip
 
 %if 0%{?rhel} >= 8 || 0%{?fedora}
 BuildRequires:  efi-srpm-macros
@@ -45,7 +44,6 @@ UEFI environment.
 
 %prep
 %autosetup -c
-cp %{SOURCE1} changelog.txt
 unzip -q Unified_storcli_all_os/JSON-Schema/JSON_SCHEMA_FILES.zip
 
 %ifarch x86_64
@@ -74,7 +72,7 @@ install -p -m 0644 -D %{name}.efi %{buildroot}%{efi_esp_efi}/%{name}.efi
 
 %files
 %license Unified_storcli_all_os/ThirdPartyLicenseNotice.pdf
-%doc changelog.txt Unified_storcli_all_os/readme.txt Unified_storcli_all_os/storcliconf.ini Unified_storcli_all_os/JSON-Schema
+%doc Unified_storcli_all_os/readme.txt Unified_storcli_all_os/storcliconf.ini Unified_storcli_all_os/JSON-Schema
 %{_sbindir}/%{name}
 
 %ifnarch ppc64le
@@ -83,6 +81,9 @@ install -p -m 0644 -D %{name}.efi %{buildroot}%{efi_esp_efi}/%{name}.efi
 %endif
 
 %changelog
+* Fri Mar 24 2023 Simone Caronni <negativo17@gmail.com> - 007.2408.0000.0000-1
+- Update to 007.2408.0000.0000.
+
 * Thu Nov 10 2022 Simone Caronni <negativo17@gmail.com> - 007.2309.0000.0000-1
 - Update to 007.2309.0000.000.
 
