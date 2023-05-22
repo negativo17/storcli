@@ -1,7 +1,7 @@
 %global debug_package %{nil}
 
 Name:           storcli
-Version:        007.2408.0000.0000
+Version:        008.0005.0000.0010
 Release:        1%{?dist}
 Summary:        Broadcom MegaRAID StorCLI
 License:        Proprietary
@@ -10,7 +10,7 @@ ExclusiveArch:  aarch64 x86_64 ppc64le
 
 # Search at: https://www.broadcom.com/support/download-search?pg=&pf=&pn=&pa=&po=&dk=storcli&pl=
 # Note that final URLs, tarball name and tarball structure keep on changing.
-Source0:        Unified_storcli_all_os_%{version}.zip
+Source0:        https://docs.broadcom.com/docs-and-downloads/%{version}_StorCLI.zip
 
 %if 0%{?rhel} >= 8 || 0%{?fedora}
 BuildRequires:  efi-srpm-macros
@@ -26,7 +26,6 @@ import, and hard drive status adjustment.
 
 MegaRAID StorCli provides a command line interface and does not support a GUI.
 
-%ifnarch ppc64le
 %package efi
 Summary:        Broadcom MegaRAID StorCLI for UEFI
 Requires:       efi-filesystem
@@ -40,47 +39,43 @@ import, and hard drive status adjustment.
 
 This package contains a binary that can be executed from the EFI partition in a
 UEFI environment.
-%endif
 
 %prep
 %autosetup -c
-unzip -q Unified_storcli_all_os/JSON-Schema/JSON_SCHEMA_FILES.zip
+unzip -q Avenger_StorCLI/JSON_Schema/JSON_SCHEMA_FILES.zip
 
 %ifarch x86_64
-rpm2cpio Unified_storcli_all_os/Linux/*rpm | cpio -idm
-mv opt/MegaRAID/storcli/storcli64 .
-cp Unified_storcli_all_os/EFI/storcli.efi .
+rpm2cpio Avenger_StorCLI/Linux/*rpm | cpio -idm
+mv opt/MegaRAID/storcli2/storcli2 .
+cp Avenger_StorCLI/UEFI/storcli2.efi .
 %endif
 
 %ifarch aarch64
-unzip Unified_storcli_all_os/ARM/Linux/storcli64.zip
-cp Unified_storcli_all_os/ARM/EFI/storcli.efi .
-%endif
-
-%ifarch ppc64le
-unzip Unified_storcli_all_os/Linux-PPC/LittleEndian/storcli64.zip
+rpm2cpio Avenger_StorCLI/ARM/Linux/storcli2-008.0005.0000.0010-1.aarch64.rpm | cpio -idm
+mv opt/MegaRAID/storcli2/storcli2 .
+mv Avenger_StorCLI/ARM/UEFI/storcli2.efi .
 %endif
 
 %build
 # Nothing to build
 
 %install
-install -p -m 0755 -D %{name}64 %{buildroot}%{_sbindir}/%{name}
-%ifnarch ppc64le
-install -p -m 0644 -D %{name}.efi %{buildroot}%{efi_esp_efi}/%{name}.efi
-%endif
+install -p -m 0755 -D %{name}2 %{buildroot}%{_sbindir}/%{name}2
+install -p -m 0644 -D %{name}2.efi %{buildroot}%{efi_esp_efi}/%{name}2.efi
 
 %files
-%license Unified_storcli_all_os/ThirdPartyLicenseNotice.pdf
-%doc Unified_storcli_all_os/readme.txt Unified_storcli_all_os/storcliconf.ini Unified_storcli_all_os/JSON-Schema
-%{_sbindir}/%{name}
+%license Avenger_StorCLI/ThirdPartyLicenseNotice.pdf
+%doc Avenger_StorCLI/readme.txt Avenger_StorCLI/storcli2conf.ini Avenger_StorCLI/JSON_Schema/JSON_SCHEMA_FILES.zip
+%{_sbindir}/%{name}2
 
-%ifnarch ppc64le
 %files efi
-%{efi_esp_efi}/%{name}.efi
-%endif
+%{efi_esp_efi}/%{name}2.efi
 
 %changelog
+* Mon May 22 2023 Simone Caronni <negativo17@gmail.com> - 008.0005.0000.0010-1
+- Update to 008.0005.0000.0010.
+- Drop ppc64le builds.
+
 * Fri Mar 24 2023 Simone Caronni <negativo17@gmail.com> - 007.2408.0000.0000-1
 - Update to 007.2408.0000.0000.
 
