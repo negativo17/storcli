@@ -26,6 +26,11 @@ import, and hard drive status adjustment.
 
 MegaRAID StorCli provides a command line interface and does not support a GUI.
 
+The StorCLI tool supports the following controllers:
+- MegaRAID 12Gb/s SAS RAID controllers
+- Initiator-Target 3 12Gb/s (IT3.x) HBA controllers
+- Software RAID 12Gb/s (SWR) controllers
+
 %ifnarch ppc64le
 %package efi
 Summary:        Broadcom MegaRAID StorCLI for UEFI
