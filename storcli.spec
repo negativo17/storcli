@@ -1,7 +1,7 @@
 %global debug_package %{nil}
 
 Name:           storcli
-Version:        007.2705.0000.0000
+Version:        007.2807.0000.0000
 Release:        1%{?dist}
 Summary:        Broadcom MegaRAID StorCLI
 License:        Proprietary
@@ -9,7 +9,8 @@ URL:            https://www.broadcom.com/products/storage/raid-controllers
 ExclusiveArch:  aarch64 x86_64 ppc64le
 
 # Search at: https://www.broadcom.com/support/download-search?pg=&pf=&pn=&pa=&po=&dk=storcli&pl=
-# Note that final URLs, tarball name and tarball structure keep on changing.
+# Note that final URLs, tarball name and tarball structure keep on changing. Get the zip file,
+# extract the zip file and rename the second zip file as follows:
 Source0:        Unified_storcli_all_os_%{version}.zip
 
 %if 0%{?rhel} >= 8 || 0%{?fedora}
@@ -86,6 +87,9 @@ install -p -m 0644 -D %{name}.efi %{buildroot}%{efi_esp_efi}/%{name}.efi
 %endif
 
 %changelog
+* Thu Mar 21 2024 Simone Caronni <negativo17@gmail.com> - 007.2807.0000.0000-1
+- Update to 007.2807.0000.0000.
+
 * Sat Oct 14 2023 Simone Caronni <negativo17@gmail.com> - 007.2705.0000.0000-1
 - Update to 007.2705.0000.0000.
 
