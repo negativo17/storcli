@@ -9,8 +9,7 @@ URL:            https://www.broadcom.com/products/storage/raid-controllers
 ExclusiveArch:  aarch64 x86_64 ppc64le
 
 # Search at: https://www.broadcom.com/support/download-search?pg=&pf=&pn=&pa=&po=&dk=storcli&pl=
-# Note that final URLs, tarball name and tarball structure keep on changing. Get the zip file,
-# extract the zip file and rename the second zip file as follows:
+# Note that final URLs, tarball name and tarball structure keep on changing.
 Source0:        STORCLI_SAS3.5_P31.zip
 
 %if 0%{?rhel} >= 8 || 0%{?fedora}
