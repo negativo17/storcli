@@ -1,7 +1,7 @@
 %global debug_package %{nil}
 
 Name:           storcli
-Version:        007.2807.0000.0000
+Version:        007.3006.0000.0000
 Release:        1%{?dist}
 Summary:        Broadcom MegaRAID StorCLI
 License:        Proprietary
@@ -11,7 +11,7 @@ ExclusiveArch:  aarch64 x86_64 ppc64le
 # Search at: https://www.broadcom.com/support/download-search?pg=&pf=&pn=&pa=&po=&dk=storcli&pl=
 # Note that final URLs, tarball name and tarball structure keep on changing. Get the zip file,
 # extract the zip file and rename the second zip file as follows:
-Source0:        Unified_storcli_all_os_%{version}.zip
+Source0:        STORCLI_SAS3.5_P31.zip
 
 %if 0%{?rhel} >= 8 || 0%{?fedora}
 BuildRequires:  efi-srpm-macros
@@ -50,11 +50,11 @@ UEFI environment.
 
 %prep
 %autosetup -c
+mv STORCLI_SAS3.5_P31/univ_viva_cli_rel/Unified_storcli_all_os .
 unzip -q Unified_storcli_all_os/JSON-Schema/JSON_SCHEMA_FILES.zip
 
 %ifarch x86_64
-rpm2cpio Unified_storcli_all_os/Linux/*rpm | cpio -idm
-mv opt/MegaRAID/storcli/storcli64 .
+unzip Unified_storcli_all_os/Linux_Lite/storcli64.zip
 cp Unified_storcli_all_os/EFI/storcli.efi .
 %endif
 
@@ -87,6 +87,9 @@ install -p -m 0644 -D %{name}.efi %{buildroot}%{efi_esp_efi}/%{name}.efi
 %endif
 
 %changelog
+* Thu Jun 20 2024 Simone Caronni <negativo17@gmail.com> - 007.3006.0000.0000-1
+- Update to 007.3006.0000.0000 (Apr 17, 2024).
+
 * Thu Mar 21 2024 Simone Caronni <negativo17@gmail.com> - 007.2807.0000.0000-1
 - Update to 007.2807.0000.0000.
 
