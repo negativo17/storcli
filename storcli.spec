@@ -2,7 +2,7 @@
 
 Name:           storcli
 Version:        007.3006.0000.0000
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Broadcom MegaRAID StorCLI
 License:        Proprietary
 URL:            https://www.broadcom.com/products/storage/raid-controllers
@@ -53,7 +53,8 @@ mv STORCLI_SAS3.5_P31/univ_viva_cli_rel/Unified_storcli_all_os .
 unzip -q Unified_storcli_all_os/JSON-Schema/JSON_SCHEMA_FILES.zip
 
 %ifarch x86_64
-unzip Unified_storcli_all_os/Linux_Lite/storcli64.zip
+rpm2cpio Unified_storcli_all_os/Linux/*rpm | cpio -idm
+mv opt/MegaRAID/storcli/storcli64 .
 cp Unified_storcli_all_os/EFI/storcli.efi .
 %endif
 
@@ -86,6 +87,9 @@ install -p -m 0644 -D %{name}.efi %{buildroot}%{efi_esp_efi}/%{name}.efi
 %endif
 
 %changelog
+* Thu Jul 18 2024 Simone Caronni <negativo17@gmail.com> - 007.3006.0000.0000-2
+- Do not use the lite binary.
+
 * Thu Jun 20 2024 Simone Caronni <negativo17@gmail.com> - 007.3006.0000.0000-1
 - Update to 007.3006.0000.0000 (Apr 17, 2024).
 
