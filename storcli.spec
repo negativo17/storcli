@@ -1,7 +1,7 @@
 %global debug_package %{nil}
 
 Name:           storcli
-Version:        007.3205.0000.0000
+Version:        007.3405.0000.0000
 Release:        1%{?dist}
 Summary:        Broadcom MegaRAID StorCLI
 License:        Proprietary
@@ -10,7 +10,7 @@ ExclusiveArch:  aarch64 x86_64 ppc64le
 
 # Search at: https://www.broadcom.com/support/download-search?pg=&pf=&pn=&pa=&po=&dk=storcli&pl=
 # Note that final URLs, tarball name and tarball structure keep on changing.
-Source0:        007.3205.0000.0000_MR7.32_Storcli.zip
+Source0:        007.3405.0000.0000-MR7.34_Storcli.zip
 
 %if 0%{?rhel} >= 8 || 0%{?fedora}
 BuildRequires:  efi-srpm-macros
@@ -87,6 +87,9 @@ install -p -m 0644 -D %{name}.efi %{buildroot}%{efi_esp_efi}/%{name}.efi
 %endif
 
 %changelog
+* Tue Oct 14 2025 Simone Caronni <negativo17@gmail.com> - 007.3405.0000.0000-1
+- Update to 007.3405.0000.0000 (MR 7.34).
+
 * Wed Apr 09 2025 Simone Caronni <negativo17@gmail.com> - 007.3205.0000.0000-1
 - Update to 007.3205.0000.0000 (MR 7.32).
 
